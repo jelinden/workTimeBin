@@ -4,3 +4,4 @@ node_modules
 .nodemonignore
 .slugignore
 .travis.yml
+test/coverage
