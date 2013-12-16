@@ -1,0 +1,10 @@
+<section data-ng-controller="TasksController" data-ng-init="find()">
+	<h3>Week {{weekNumber}}</h3>
+    <ul class="tasks unstyled">
+		<li data-ng-repeat="task in tasks">
+			<div><a data-ng-href="#!/tasks/{{task._id}}">{{task.date | date:'dd.MM.yyyy'}}</a>
+			{{task.time}} / {{task.user.name}}</div>
+		</li>
+	</ul>{{hours}} hours {{minutes}} minutes
+	<h1 data-ng-hide="!tasks || tasks.length">No tasks yet. <br> Why don't you <a href="/#!/tasks/create">Create One</a>?</h1>
+</section>
