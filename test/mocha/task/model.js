@@ -13,7 +13,7 @@ var date;
 
 //The tests
 describe('<Unit Test>', function() {
-    describe('Model Article:', function() {
+    describe('Model Task:', function() {
         beforeEach(function(done) {
             user = new User({
                 name: 'Full name',
@@ -25,7 +25,7 @@ describe('<Unit Test>', function() {
             user.save(function(err) {
                 task = new Task({
                     date: new Date(),
-                    time: '02:!0',
+                    time: '02:10',
                     user: user
                 });
 

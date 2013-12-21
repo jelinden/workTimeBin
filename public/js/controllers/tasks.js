@@ -1,4 +1,4 @@
-angular.module('mean.tasks').controller('TasksController', ['$scope', '$routeParams', '$location', 'Global', 'Tasks', function ($scope, $routeParams, $location, Global, Tasks) {
+angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', '$routeParams', '$attrs', '$location', 'Global', 'Tasks', function ($scope, $route, $routeParams, $attrs, $location, Global, Tasks) {
     $scope.global = Global;
 
     $scope.create = function() {
@@ -7,7 +7,7 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$routePar
             time: this.time
         });
         task.$save(function(response) {
-            $location.path("tasks");
+            $route.reload();
         });
         
         this.date = "";
@@ -45,7 +45,9 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$routePar
     };
 
     $scope.find = function() {
-        Tasks.query(function(tasks) {
+        Tasks.query({
+            fromDate: $routeParams.fromDate
+        },function(tasks) {
             $scope.hours = 0;
             $scope.minutes = 0;
             $scope.tasks = tasks;
@@ -62,8 +64,32 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$routePar
             }
             $scope.hours = ($scope.hours).toFixed(0);
             $.datepicker.setDefaults($.datepicker.regional.fi);
-            $scope.weekNumber = $.datepicker.iso8601Week(new Date());
+            if($routeParams.fromDate !== undefined) {
+                $scope.weekNumber = $.datepicker.iso8601Week($.datepicker.parseDate("yy-mm-dd", $routeParams.fromDate));
+            } else {
+                $scope.weekNumber = $.datepicker.iso8601Week(new Date());
+            }
+            $scope.lastWeekDate = $.datepicker.formatDate("yy-mm-dd", getLastWeek($routeParams.fromDate));
+            $scope.nextWeekDate = $.datepicker.formatDate("yy-mm-dd", getNextWeek($routeParams.fromDate));
         });
+        
+        function getLastWeek(fromDate) {
+            var today = new Date();
+            if(fromDate !== undefined) {
+                today = $.datepicker.parseDate("yy-mm-dd", fromDate);
+            }
+            var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+            return lastWeek;
+        }
+        
+        function getNextWeek(fromDate) {
+            var today = new Date();
+            if(fromDate !== undefined) {
+                today = $.datepicker.parseDate("yy-mm-dd", fromDate);
+            }
+            var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
+            return lastWeek ;
+        }
     };
 
     $scope.findOne = function() {

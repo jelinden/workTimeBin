@@ -25,6 +25,7 @@
         "crypto": "latest",
         "passport": "latest",
         "passport-local": "latest",
+        "jquery": "latest",
         "underscore": "latest",
         "async": "latest",
         "view-helpers": "latest",

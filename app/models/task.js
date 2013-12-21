@@ -42,7 +42,7 @@ TaskSchema.path('time').validate(function(time) {
 /**
  * Statics
  */
-TaskSchema.statics = {
+TaskSchema.statistics = {
     load: function(id, cb) {
         this.findOne({
             _id: id

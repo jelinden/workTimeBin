@@ -1,10 +1,31 @@
+<section data-ng-controller="TasksController">
+    <div>
+        <form class="form" name="hours" data-ng-submit="create()">
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="text" id="date" class="form-control" ui-date="dateOptions" data-ng-model="date" required placeholder="{{date | date:'dd.MM.yyyy'}}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="time">Hours</label>
+                <input type="text" data-ng-model="time" name="time" id="time" placeholder="eg. 8:05" ng-pattern="/^[0-9]{1,2}\:[0-9]{1,2}$/"/>
+            </div>
+            <div class="form-group submitMargin">
+                <input type="submit" class="btn" value="Send">
+            </div>
+        </form>
+    </div>
+</section>
 <section data-ng-controller="TasksController" data-ng-init="find()">
-	<h3>Week {{weekNumber}}</h3>
+    <div class="titleLinks">
+        <a href="#!/tasks/from/{{lastWeekDate}}">Week {{weekNumber-1}}</a>
+        <h3>Week {{weekNumber}}</h3>
+        <a href="#!/tasks/from/{{nextWeekDate}}">Week {{weekNumber+1}}</a>
+    </div>
     <ul class="tasks unstyled">
 		<li data-ng-repeat="task in tasks">
 			<div><a data-ng-href="#!/tasks/{{task._id}}">{{task.date | date:'dd.MM.yyyy'}}</a>
 			{{task.time}} / {{task.user.name}}</div>
 		</li>
 	</ul>{{hours}} hours {{minutes}} minutes
-	<h1 data-ng-hide="!tasks || tasks.length">No tasks yet. <br> Why don't you <a href="/#!/tasks/create">Create One</a>?</h1>
+	<h1 data-ng-hide="!tasks || tasks.length">Didn't find any. </h1>
 </section>

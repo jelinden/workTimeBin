@@ -5,3 +5,29 @@ h1 {
 ul.tasks li:not(:last-child) {
     border-bottom:1px solid #ccc
 }
+
+ul.tasks {
+    max-width: 260px;   
+}
+.titleLinks a, h3 {
+    display: inline;
+    padding: 5px;
+}
+#date, #time {
+    width: 80px;   
+}
+.form-group {
+    display:inline;
+    float:left;
+    margin-right: 2px;
+    margin-bottom: 20px;
+}
+.titleLinks {
+    clear:left;
+}
+.submitMargin {
+    margin-top: 25px;   
+}
+#time .ng-invalid {
+    border-color:red;
+}

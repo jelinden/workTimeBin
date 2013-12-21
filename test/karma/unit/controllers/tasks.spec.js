@@ -27,12 +27,13 @@
                 scope,
                 $httpBackend,
                 $routeParams,
+                $attrs,
                 $location;
 
             // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
             // This allows us to inject a service but then attach it to a variable
             // with the same name as the service.
-            beforeEach(inject(function($controller, $rootScope, _$location_, _$routeParams_, _$httpBackend_) {
+            beforeEach(inject(function($controller, $rootScope, _$location_, _$routeParams_, _$attrs_,  _$httpBackend_) {
 
                 scope = $rootScope.$new();
 
@@ -41,6 +42,8 @@
                 });
 
                 $routeParams = _$routeParams_;
+                
+                $attrs = _$attrs_;
 
                 $httpBackend = _$httpBackend_;
 

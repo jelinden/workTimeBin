@@ -3,8 +3,8 @@
  */
 var mongoose = require('mongoose'),
     Task = mongoose.model('Task'),
-    _ = require('underscore');
-
+    _ = require('underscore'),
+    $ = require('jquery');
 
 /**
  * Find task by id
@@ -44,7 +44,6 @@ exports.update = function(req, res) {
     var task = req.task;
 
     task = _.extend(task, req.body);
-
     task.save(function(err) {
         res.jsonp(task);
     });
@@ -75,7 +74,19 @@ exports.show = function(req, res) {
  * List of tasks
  */
 exports.all = function(req, res) {
-    Task.find({ "date": { $gte: getWeeksFirstDayAsDate() }}).and({"user": req.user._id }).sort('-date').populate('user', 'name username').exec(function(err, tasks) {
+    var dateToBeFetched = new Date();
+    var lastDateToBeFetched = new Date();
+
+    if(req.query.fromDate !== 'undefined') {
+        var parts = req.query.fromDate.split('-');
+        req.fromDate = new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
+    }
+    if(req.fromDate !== undefined) {
+        dateToBeFetched = req.fromDate;
+    }
+    var firstDayOfTheWeek = getWeeksFirstDayAsDate(dateToBeFetched);
+    var weeksLastDayAsDate = getWeeksLastDayAsDate(new Date(firstDayOfTheWeek.getTime()));
+    Task.find({ "date": { $gte: firstDayOfTheWeek, $lte: weeksLastDayAsDate }}).and({"user": req.user._id }).sort('-date').populate('user', 'name username').exec(function(err, tasks) {
         if (err) {
             res.render('error', {
                 status: 500
@@ -85,19 +96,33 @@ exports.all = function(req, res) {
         }
     });
     
-    function getWeeksFirstDayAsDate() {
-        var firstDayOfWeek = new Date();
-        var index = firstDayOfWeek.getDay();
+    function getWeeksFirstDayAsDate(dateToBeFetched) {
+        var index = dateToBeFetched.getDay();
         if(index === 0) {
-         firstDayOfWeek.setDate(firstDayOfWeek.getDate() - 6);
+         dateToBeFetched.setDate(dateToBeFetched.getDate() - 6);
         }
         else if(index == 1) {
-         firstDayOfWeek.setDate(firstDayOfWeek.getDate());
+         dateToBeFetched.setDate(dateToBeFetched.getDate());
         }
         else if(index != 1 && index > 0) {
-          firstDayOfWeek.setDate(firstDayOfWeek.getDate() - (index - 1));
+          dateToBeFetched.setDate(dateToBeFetched.getDate() - (index - 1));
         }
-        firstDayOfWeek.setHours(0,0,0,0);
-        return firstDayOfWeek;
+        dateToBeFetched.setHours(0,0,0,0);
+        return dateToBeFetched;
+    }
+    
+    function getWeeksLastDayAsDate(dateToBeFetched) {
+        var index = dateToBeFetched.getDay();
+        if(index === 0) {
+         dateToBeFetched.setDate(dateToBeFetched.getDate());
+        }
+        else if(index == 1) {
+         dateToBeFetched.setDate(dateToBeFetched.getDate() + 6);
+        }
+        else if(index != 1 && index > 0) {
+          dateToBeFetched.setDate(dateToBeFetched.getDate() + (index - 1));
+        }
+        dateToBeFetched.setHours(0,0,0,0);
+        return dateToBeFetched;
     }
 };

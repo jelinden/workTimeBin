@@ -1,4 +1,4 @@
-//Articles service used for articles REST endpoint
+//Tasks service used for task REST endpoint
 angular.module('mean.tasks').factory("Tasks", ['$resource', function($resource) {
     return $resource('tasks/:taskId', {
         taskId: '@_id'
@@ -8,7 +8,7 @@ angular.module('mean.tasks').factory("Tasks", ['$resource', function($resource) 
         }
     });
 }]);
-var underscore = angular.module('underscore', []);
-underscore.factory('_', function() {
-  return window._; // assumes underscore has already been loaded on the page
+var underscore = angular.module('mean.underscore', []);
+    underscore.factory('_', function() {
+    return window._; // assumes underscore has already been loaded on the page
 });
