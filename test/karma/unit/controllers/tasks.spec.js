@@ -27,13 +27,12 @@
                 scope,
                 $httpBackend,
                 $routeParams,
-                $attrs,
                 $location;
 
             // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
             // This allows us to inject a service but then attach it to a variable
             // with the same name as the service.
-            beforeEach(inject(function($controller, $rootScope, _$location_, _$routeParams_, _$attrs_,  _$httpBackend_) {
+            beforeEach(inject(function($controller, $rootScope, _$location_, _$routeParams_,  _$httpBackend_) {
 
                 scope = $rootScope.$new();
 
@@ -42,8 +41,6 @@
                 });
 
                 $routeParams = _$routeParams_;
-                
-                $attrs = _$attrs_;
 
                 $httpBackend = _$httpBackend_;
 
@@ -55,10 +52,11 @@
                 'fetched from XHR', function() {
                     var date = new Date();
                     // test expected GET request
-                    $httpBackend.expectGET('tasks').respond([{
+                    $httpBackend.expectGET('tasks?fromDate=undefined').respond([{
                         date: date,
                         time: '02:10'
                     }]);
+                    $httpBackend.expectGET(/views\/index.html$/).respond(204);
 
                     // run controller
                     scope.find();
@@ -87,7 +85,8 @@
 
                     // test expected GET request with response object
                     $httpBackend.expectGET(/tasks\/([0-9a-fA-F]{24})$/).respond(testTaskData());
-
+                    $httpBackend.expectGET(/views\/index.html$/).respond(204);
+                    
                     // run controller
                     scope.findOne();
                     $httpBackend.flush();
@@ -124,7 +123,7 @@
 
                     // test post request is sent
                     $httpBackend.expectPOST('tasks', postTaskData()).respond(responseTaskData());
-
+                    $httpBackend.expectGET(/views\/index.html$/).respond(204);
                     // Run controller
                     scope.create();
                     $httpBackend.flush();
@@ -134,7 +133,7 @@
                     expect(scope.time).toEqual('');
 
                     // test URL location to new object
-                    expect($location.path()).toBe('/tasks');
+                    expect($location.path()).toBe('/');
                 });
 
             it('$scope.update() should update a valid task', inject(function(Tasks) {
@@ -156,6 +155,7 @@
 
                 // test PUT happens correctly
                 $httpBackend.expectPUT(/tasks\/([0-9a-fA-F]{24})$/).respond();
+                $httpBackend.expectGET(/views\/tasks\/view.html$/).respond(204);
 
                 // run controller
                 scope.update();
@@ -166,7 +166,7 @@
 
             }));
 
-            it('$scope.remove() should send a DELETE request with a valid taskId' +
+            it('$scope.remove() should send a DELETE request with a valid taskId ' +
                 'and remove the task from the scope', inject(function(Tasks) {
 
                     // fixture rideshare
@@ -180,7 +180,8 @@
 
                     // test expected rideshare DELETE request
                     $httpBackend.expectDELETE(/tasks\/([0-9a-fA-F]{24})$/).respond(204);
-
+                    $httpBackend.expectGET(/views\/index.html$/).respond(204);
+                    
                     // run controller
                     scope.remove(task);
                     $httpBackend.flush();

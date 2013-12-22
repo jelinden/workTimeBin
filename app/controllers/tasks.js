@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
  * Find task by id
  */
 exports.task = function(req, res, next, id) {
-    Task.load(id, function(err, task) {
+    Task.findOne({'_id': id}).populate('user', 'name username').exec(function(err, task) {
         if (err) return next(err);
         if (!task) return next(new Error('Failed to load task ' + id));
         req.task = task;

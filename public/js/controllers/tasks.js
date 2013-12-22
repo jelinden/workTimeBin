@@ -1,4 +1,4 @@
-angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', '$routeParams', '$attrs', '$location', 'Global', 'Tasks', function ($scope, $route, $routeParams, $attrs, $location, Global, Tasks) {
+angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', '$routeParams', '$location', 'Global', 'Tasks', function ($scope, $route, $routeParams, $location, Global, Tasks) {
     $scope.global = Global;
 
     $scope.create = function() {
@@ -97,6 +97,7 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', 
             taskId: $routeParams.taskId
         }, function(task) {
             $scope.task = task;
+            $scope.taskDate = new Date(task.date);
         });
     };
 }]);

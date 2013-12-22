@@ -4,13 +4,14 @@
 			<label class="control-label" for="date">Date</label>
 
 			<div class="controls">
-				<input type="text" id="date" ui-date="dateOptions" data-ng-model="date" required placeholder="{{date | date:'dd.MM.yyyy'}}"/>
+                
+				<input type="text" id="date" ui-date="dateOptions" data-ng-model="taskDate" required/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="time">Hours</label>
 			<div class="controls">
-				<input type="text" data-ng-model="time" id="time" placeholder="Time" required>
+				<input type="text" data-ng-model="task.time" id="time"  required>
 			</div>
 		</div>
 		<div class="control-group">

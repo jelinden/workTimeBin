@@ -1,7 +1,8 @@
 <section data-ng-controller="TasksController" data-ng-init="findOne()">
-    <span>{{task.created | date:'medium'}}</span>/
-    <span>{{task.user.name}}</span>
-    <h2>{{date | date:'dd.MM.yyyy'}}</h2>
+    <span>Created: {{task.created | date:'dd.MM.yyyy hh:mm'}}</span>
+    <br/>
+
+    Day: <span>{{task.date | date:'dd.MM.yyyy'}}</span> Time:<span>{{task.time}}</span>
     <div data-ng-show="global.user._id == task.user._id">
         <a class="btn" href="/#!/tasks/{{task._id}}/edit">
         	<i class="icon-edit"></i>
@@ -10,5 +11,5 @@
             <i class="icon-trash"></i>
         </a>
     </div>
-    <div>{{task.time}}</div>
+    
 </section>
