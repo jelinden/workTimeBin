@@ -1,5 +1,5 @@
 <section data-ng-controller="TasksController" data-ng-init="findOne()">
-    <span>Created: {{task.created | date:'dd.MM.yyyy hh:mm'}}</span>
+    <span>Created: {{task.created | date:'dd.MM.yyyy hh:mm'}} by {{task.user.name}}</span>
     <br/>
 
     Day: <span>{{task.date | date:'dd.MM.yyyy'}}</span> Time:<span>{{task.time}}</span>
