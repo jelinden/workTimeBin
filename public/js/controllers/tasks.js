@@ -88,7 +88,7 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', 
                 today = $.datepicker.parseDate("yy-mm-dd", fromDate);
             }
             var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
-            return lastWeek ;
+            return lastWeek;
         }
     };
 
@@ -97,7 +97,6 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', 
             taskId: $routeParams.taskId
         }, function(task) {
             $scope.task = task;
-            $scope.taskDate = new Date(task.date);
         });
     };
 }]);

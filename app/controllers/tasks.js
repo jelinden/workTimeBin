@@ -42,7 +42,6 @@ exports.create = function(req, res) {
  */
 exports.update = function(req, res) {
     var task = req.task;
-
     task = _.extend(task, req.body);
     task.save(function(err) {
         res.jsonp(task);
