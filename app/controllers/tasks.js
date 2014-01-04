@@ -85,7 +85,7 @@ exports.all = function(req, res) {
     }
     var firstDayOfTheWeek = getWeeksFirstDayAsDate(dateToBeFetched);
     var weeksLastDayAsDate = getWeeksLastDayAsDate(new Date(firstDayOfTheWeek.getTime()));
-    Task.find({ "date": { $gte: firstDayOfTheWeek, $lte: weeksLastDayAsDate }}).and({"user": req.user._id }).sort('-date').populate('user', 'name username').exec(function(err, tasks) {
+    Task.find({ 'date': { $gte: firstDayOfTheWeek, $lte: weeksLastDayAsDate }}).and({'user': req.user._id }).sort('-date').populate('user', 'name username').exec(function(err, tasks) {
         if (err) {
             res.render('error', {
                 status: 500

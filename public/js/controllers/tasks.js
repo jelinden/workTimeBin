@@ -1,4 +1,8 @@
-angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', '$routeParams', '$location', 'Global', 'Tasks', function ($scope, $route, $routeParams, $location, Global, Tasks) {
+'use strict';
+
+angular.module('mean.tasks').controller('TasksController', 
+    ['$scope', '$route', '$routeParams', '$location', 'Global', 'Tasks', 
+     function ($scope, $route, $routeParams, $location, Global, Tasks) {
     $scope.global = Global;
 
     $scope.create = function() {
@@ -10,18 +14,18 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', 
             $route.reload();
         });
         
-        this.date = "";
-        this.time = "";
+        this.date = '';
+        this.time = '';
     };
     
     $scope.date = new Date();
     
     $scope.remove = function(task) {
         if (task) {
-            task.$remove();  
+            task.$remove();
 
             for (var i in $scope.tasks) {
-                if ($scope.tasks[i] == task) {
+                if ($scope.tasks[i] === task) {
                     $scope.tasks.splice(i, 1);
                 }
             }
@@ -46,14 +50,14 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', 
 
     $scope.find = function() {
         Tasks.query({
-            fromDate: $routeParams.fromDate
+            fromDate: $routeParams.fromDate;
         },function(tasks) {
             $scope.hours = 0;
             $scope.minutes = 0;
             $scope.tasks = tasks;
             for(var i in tasks) {
                 if(tasks[i].time !== undefined) {
-                    var time = tasks[i].time.split(":");
+                    var time = tasks[i].time.split(':');
                     $scope.hours += Number(time[0]);
                     $scope.minutes += Number(time[1]);
                 }
@@ -65,18 +69,18 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', 
             $scope.hours = ($scope.hours).toFixed(0);
             $.datepicker.setDefaults($.datepicker.regional.fi);
             if($routeParams.fromDate !== undefined) {
-                $scope.weekNumber = $.datepicker.iso8601Week($.datepicker.parseDate("yy-mm-dd", $routeParams.fromDate));
+                $scope.weekNumber = $.datepicker.iso8601Week($.datepicker.parseDate('yy-mm-dd', $routeParams.fromDate));
             } else {
                 $scope.weekNumber = $.datepicker.iso8601Week(new Date());
             }
-            $scope.lastWeekDate = $.datepicker.formatDate("yy-mm-dd", getLastWeek($routeParams.fromDate));
-            $scope.nextWeekDate = $.datepicker.formatDate("yy-mm-dd", getNextWeek($routeParams.fromDate));
+            $scope.lastWeekDate = $.datepicker.formatDate('yy-mm-dd', getLastWeek($routeParams.fromDate));
+            $scope.nextWeekDate = $.datepicker.formatDate('yy-mm-dd', getNextWeek($routeParams.fromDate));
         });
         
         function getLastWeek(fromDate) {
             var today = new Date();
             if(fromDate !== undefined) {
-                today = $.datepicker.parseDate("yy-mm-dd", fromDate);
+                today = $.datepicker.parseDate('yy-mm-dd', fromDate);
             }
             var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
             return lastWeek;
@@ -85,7 +89,7 @@ angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', 
         function getNextWeek(fromDate) {
             var today = new Date();
             if(fromDate !== undefined) {
-                today = $.datepicker.parseDate("yy-mm-dd", fromDate);
+                today = $.datepicker.parseDate('yy-mm-dd', fromDate);
             }
             var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
             return lastWeek;

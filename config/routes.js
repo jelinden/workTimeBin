@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(app, passport, auth) {
     var users = require('../app/controllers/users');
     app.get('/signin', users.signin);

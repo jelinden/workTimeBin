@@ -1,3 +1,5 @@
+'use strict';
+
 //Setting up route
 angular.module('mean').config(['$routeProvider',
     function($routeProvider) {

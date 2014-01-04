@@ -5,7 +5,7 @@
     "private": false,
     "repository": {
         "type": "git",
-        "url": "https://github.com/jelinden/WorkTimeBin.git"
+        "url": "https://github.com/jelinden/workTimeBin.git"
     },
     "engines": {
         "node": "0.10.x",
@@ -18,7 +18,7 @@
     },
     "dependencies": {
         "express": "latest",
-        "jade": "0.35.0",
+        "jade": "1.0.2",
         "mongoose": "latest",
         "connect-mongo": "latest",
         "connect-flash": "latest",
