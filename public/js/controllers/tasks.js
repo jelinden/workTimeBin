@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('mean.tasks').controller('TasksController', 
-    ['$scope', '$route', '$routeParams', '$location', 'Global', 'Tasks', 
-     function ($scope, $route, $routeParams, $location, Global, Tasks) {
+angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', '$routeParams', '$location', 'Global', 'Tasks', 
+function ($scope, $route, $routeParams, $location, Global, Tasks) {
     $scope.global = Global;
 
     $scope.create = function() {
@@ -50,7 +49,7 @@ angular.module('mean.tasks').controller('TasksController',
 
     $scope.find = function() {
         Tasks.query({
-            fromDate: $routeParams.fromDate;
+            fromDate: $routeParams.fromDate
         },function(tasks) {
             $scope.hours = 0;
             $scope.minutes = 0;

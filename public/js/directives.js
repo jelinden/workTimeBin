@@ -1,4 +1,6 @@
-angular.module('mean.tasks').controller('TasksController', function($scope) {
+'use strict';
+
+angular.module('mean.tasks').directive('TasksController', function($scope) {
     $scope.dateOptions = {
         changeYear: false,
         changeMonth: false,

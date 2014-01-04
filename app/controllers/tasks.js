@@ -73,8 +73,34 @@ exports.show = function(req, res) {
  * List of tasks
  */
 exports.all = function(req, res) {
+    
+    function getWeeksFirstDayAsDate(dateToBeFetched) {
+        var index = dateToBeFetched.getDay();
+        if(index === 0) {
+            dateToBeFetched.setDate(dateToBeFetched.getDate() - 6);
+        } else if(index === 1) {
+            dateToBeFetched.setDate(dateToBeFetched.getDate());
+        } else if(index !== 1 && index > 0) {
+            dateToBeFetched.setDate(dateToBeFetched.getDate() - (index - 1));
+        }
+        dateToBeFetched.setHours(0,0,0,0);
+        return dateToBeFetched;
+    }
+    
+    function getWeeksLastDayAsDate(dateToBeFetched) {
+        var index = dateToBeFetched.getDay();
+        if(index === 0) {
+            dateToBeFetched.setDate(dateToBeFetched.getDate());
+        } else if(index === 1) {
+            dateToBeFetched.setDate(dateToBeFetched.getDate() + 6);
+        } else if(index !== 1 && index > 0) {
+            dateToBeFetched.setDate(dateToBeFetched.getDate() + (index - 1));
+        }
+        dateToBeFetched.setHours(0,0,0,0);
+        return dateToBeFetched;
+    }
+    
     var dateToBeFetched = new Date();
-    var lastDateToBeFetched = new Date();
 
     if(req.query.fromDate !== 'undefined') {
         var parts = req.query.fromDate.split('-');
@@ -85,7 +111,8 @@ exports.all = function(req, res) {
     }
     var firstDayOfTheWeek = getWeeksFirstDayAsDate(dateToBeFetched);
     var weeksLastDayAsDate = getWeeksLastDayAsDate(new Date(firstDayOfTheWeek.getTime()));
-    Task.find({ 'date': { $gte: firstDayOfTheWeek, $lte: weeksLastDayAsDate }}).and({'user': req.user._id }).sort('-date').populate('user', 'name username').exec(function(err, tasks) {
+    Task.find({ 'date': { $gte: firstDayOfTheWeek, $lte: weeksLastDayAsDate }}).and({'user': req.user._id })
+    .sort('-date').populate('user', 'name username').exec(function(err, tasks) {
         if (err) {
             res.render('error', {
                 status: 500
@@ -94,34 +121,4 @@ exports.all = function(req, res) {
             res.jsonp(tasks);
         }
     });
-    
-    function getWeeksFirstDayAsDate(dateToBeFetched) {
-        var index = dateToBeFetched.getDay();
-        if(index === 0) {
-         dateToBeFetched.setDate(dateToBeFetched.getDate() - 6);
-        }
-        else if(index == 1) {
-         dateToBeFetched.setDate(dateToBeFetched.getDate());
-        }
-        else if(index != 1 && index > 0) {
-          dateToBeFetched.setDate(dateToBeFetched.getDate() - (index - 1));
-        }
-        dateToBeFetched.setHours(0,0,0,0);
-        return dateToBeFetched;
-    }
-    
-    function getWeeksLastDayAsDate(dateToBeFetched) {
-        var index = dateToBeFetched.getDay();
-        if(index === 0) {
-         dateToBeFetched.setDate(dateToBeFetched.getDate());
-        }
-        else if(index == 1) {
-         dateToBeFetched.setDate(dateToBeFetched.getDate() + 6);
-        }
-        else if(index != 1 && index > 0) {
-          dateToBeFetched.setDate(dateToBeFetched.getDate() + (index - 1));
-        }
-        dateToBeFetched.setHours(0,0,0,0);
-        return dateToBeFetched;
-    }
 };
