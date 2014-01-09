@@ -102,7 +102,7 @@ exports.all = function(req, res) {
     
     var dateToBeFetched = new Date();
 
-    if(req.query.fromDate !== 'undefined') {
+    if(req.query.fromDate !== undefined) {
         var parts = req.query.fromDate.split('-');
         req.fromDate = new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
     }

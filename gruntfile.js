@@ -50,10 +50,9 @@ module.exports = function(grunt) {
                 options: {
                     file: 'server.js',
                     args: [],
-                    ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
+                    ignoredFiles: ['public/**'],
                     watchedExtensions: ['js'],
-                    watchedFolders: ['app', 'config'],
-                    debug: true,
+                    nodeArgs: ['--debug'],
                     delayTime: 1,
                     env: {
                         PORT: 3000
@@ -70,7 +69,8 @@ module.exports = function(grunt) {
         },
         mochaTest: {
             options: {
-                reporter: 'spec'
+                reporter: 'spec',
+                require: 'server.js'
             },
             src: ['test/mocha/**/*.js']
         },

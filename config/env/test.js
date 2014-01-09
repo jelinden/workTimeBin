@@ -1,5 +1,5 @@
 module.exports = {
-    db: "mongodb://localhost/worktimebin",
+    db: "mongodb://localhost/worktimebintest",
     port: 3001,
     app: {
         name: "Work time bin"
