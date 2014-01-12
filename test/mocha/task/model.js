@@ -2,7 +2,6 @@
  * Module dependencies.
  */
 var should = require('should'),
-    app = require('../../../server'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Task = mongoose.model('Task');
@@ -18,7 +17,6 @@ describe('<Unit Test>', function() {
             user = new User({
                 name: 'Full name',
                 email: 'test@test.com',
-                username: 'user',
                 password: 'password'
             });
 
