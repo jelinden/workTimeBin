@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', '$routeParams', '$location', 'Global', 'Tasks', 
+var $jq = jQuery.noConflict();
+
+angular.module('mean.tasks').controller('TasksController', ['$scope', '$route', '$routeParams', '$location', 'Global', 'Tasks',
 function ($scope, $route, $routeParams, $location, Global, Tasks) {
     $scope.global = Global;
 
@@ -9,7 +11,7 @@ function ($scope, $route, $routeParams, $location, Global, Tasks) {
             date: new Date(this.date),
             time: this.time
         });
-        task.$save(function(response) {
+        task.$save(function() {
             $route.reload();
         });
         
@@ -66,20 +68,20 @@ function ($scope, $route, $routeParams, $location, Global, Tasks) {
                 $scope.minutes = $scope.minutes % 60;
             }
             $scope.hours = ($scope.hours).toFixed(0);
-            $.datepicker.setDefaults($.datepicker.regional.fi);
+            $jq.datepicker.setDefaults($jq.datepicker.regional.fi);
             if($routeParams.fromDate !== undefined) {
-                $scope.weekNumber = $.datepicker.iso8601Week($.datepicker.parseDate('yy-mm-dd', $routeParams.fromDate));
+                $scope.weekNumber = $jq.datepicker.iso8601Week($jq.datepicker.parseDate('yy-mm-dd', $routeParams.fromDate));
             } else {
-                $scope.weekNumber = $.datepicker.iso8601Week(new Date());
+                $scope.weekNumber = $jq.datepicker.iso8601Week(new Date());
             }
-            $scope.lastWeekDate = $.datepicker.formatDate('yy-mm-dd', getLastWeek($routeParams.fromDate));
-            $scope.nextWeekDate = $.datepicker.formatDate('yy-mm-dd', getNextWeek($routeParams.fromDate));
+            $scope.lastWeekDate = $jq.datepicker.formatDate('yy-mm-dd', getLastWeek($routeParams.fromDate));
+            $scope.nextWeekDate = $jq.datepicker.formatDate('yy-mm-dd', getNextWeek($routeParams.fromDate));
         });
         
         function getLastWeek(fromDate) {
             var today = new Date();
             if(fromDate !== undefined) {
-                today = $.datepicker.parseDate('yy-mm-dd', fromDate);
+                today = $jq.datepicker.parseDate('yy-mm-dd', fromDate);
             }
             var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
             return lastWeek;
@@ -88,7 +90,7 @@ function ($scope, $route, $routeParams, $location, Global, Tasks) {
         function getNextWeek(fromDate) {
             var today = new Date();
             if(fromDate !== undefined) {
-                today = $.datepicker.parseDate('yy-mm-dd', fromDate);
+                today = $jq.datepicker.parseDate('yy-mm-dd', fromDate);
             }
             var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
             return lastWeek;

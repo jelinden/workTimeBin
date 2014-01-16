@@ -103,12 +103,12 @@
                 'locate to new object URL', function() {
                     var date = new Date();
                     // fixture expected POST data
-                    var postTaskData = function() {
+                    /*var postTaskData = function() {
                         return {
                             date: date,
                             time: '02:10'
                         };
-                    };
+                    };*/
 
                     // fixture expected response data
                     var responseTaskData = function() {

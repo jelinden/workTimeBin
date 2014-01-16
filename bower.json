@@ -2,6 +2,8 @@
   "name": "worktimebin",
   "version": "0.1.2",
   "dependencies": {
+    "jquery": "~2.1.0-beta3",
+    "jquery-ui": "~1.10.3",
     "angular": "latest",
     "angular-resource": "latest",
     "angular-cookies": "latest",

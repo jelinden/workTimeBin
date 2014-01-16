@@ -18,10 +18,7 @@ module.exports = function(app, passport, db) {
         level: 9
     }));
 
-    app.use(express.favicon());
-    app.use(express.static(config.root + '/public'));
-
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.NODE_ENV === 'development') {
         app.use(express.logger('dev'));
     }
 

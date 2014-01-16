@@ -1,10 +1,11 @@
+'use strict';
+
 /**
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
     Task = mongoose.model('Task'),
-    _ = require('underscore'),
-    $ = require('jquery');
+    _ = require('underscore');
 
 /**
  * Find task by id
@@ -43,7 +44,7 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
     var task = req.task;
     task = _.extend(task, req.body);
-    task.save(function(err) {
+    task.save(function() {
         res.jsonp(task);
     });
 };

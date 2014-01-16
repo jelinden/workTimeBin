@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Module dependencies.
  */
@@ -8,7 +10,7 @@ var should = require('should'),
 
 //Globals
 var user;
-var date;
+var task;
 
 //The tests
 describe('<Unit Test>', function() {
@@ -20,7 +22,7 @@ describe('<Unit Test>', function() {
                 password: 'password'
             });
 
-            user.save(function(err) {
+            user.save(function() {
                 task = new Task({
                     date: new Date(),
                     time: '02:10',
