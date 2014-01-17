@@ -1,9 +1,4 @@
 node_modules
-.bowerrc
-.jshintrc
-.nodemonignore
-.slugignore
-.travis.yml
 test/coverage
 workhours.log
 bower_components
