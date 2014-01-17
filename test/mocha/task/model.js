@@ -1,15 +1,16 @@
+'use strict';
+
 /**
  * Module dependencies.
  */
 var should = require('should'),
-    app = require('../../../server'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Task = mongoose.model('Task');
 
 //Globals
 var user;
-var date;
+var task;
 
 //The tests
 describe('<Unit Test>', function() {
@@ -18,11 +19,10 @@ describe('<Unit Test>', function() {
             user = new User({
                 name: 'Full name',
                 email: 'test@test.com',
-                username: 'user',
                 password: 'password'
             });
 
-            user.save(function(err) {
+            user.save(function() {
                 task = new Task({
                     date: new Date(),
                     time: '02:10',

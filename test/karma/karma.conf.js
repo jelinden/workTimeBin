@@ -1,3 +1,5 @@
+'use strict';
+
 // Karma configuration
 // Generated on Sat Oct 05 2013 22:00:14 GMT+0700 (ICT)
 
@@ -14,16 +16,17 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
+            'public/lib/jquery/jquery.js',
+            'public/lib/jquery-ui/ui/jquery-ui.js',
             'public/lib/angular/angular.js',
             'public/lib/angular-mocks/angular-mocks.js',
             'public/lib/angular-cookies/angular-cookies.js',
             'public/lib/angular-resource/angular-resource.js',
+            'public/lib/angular-route/angular-route.js',
             'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'public/lib/angular-bootstrap/ui-bootstrap.js',
             'public/lib/angular-ui-utils/modules/route/route.js',
             'public/lib/angular-ui-date/src/date.js',
-            'public/lib/jquery/jquery.js',
-            'public/lib/jquery-ui/ui/jquery-ui.js',
             'public/js/app.js',
             'public/js/config.js',
             'public/js/directives.js',

@@ -18,10 +18,7 @@ module.exports = function(app, passport, db) {
         level: 9
     }));
 
-    app.use(express.favicon());
-    app.use(express.static(config.root + '/public'));
-
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.NODE_ENV === 'development') {
         app.use(express.logger('dev'));
     }
 
@@ -47,7 +44,9 @@ module.exports = function(app, passport, db) {
         app.use(passport.initialize());
         app.use(passport.session());
         app.use(app.router);
-
+        app.use(express.favicon());
+        app.use(express.static(config.root + '/public'));
+        
         app.use(function(err, req, res, next) {
             //Treat as 404
             if (~err.message.indexOf('not found')) return next();

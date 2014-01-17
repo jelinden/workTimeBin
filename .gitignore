@@ -8,3 +8,4 @@ test/coverage
 workhours.log
 bower_components
 worktimebin.pid
+public/lib/

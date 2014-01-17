@@ -1,11 +1,11 @@
+'use strict';
+
 /**
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    crypto = require('crypto'),
-    _ = require('underscore');
-
+    crypto = require('crypto');
 
 /**
  * User Schema
@@ -64,7 +64,7 @@ UserSchema.path('hashed_password').validate(function(hashed_password) {
 UserSchema.pre('save', function(next) {
     if (!this.isNew) return next();
 
-    if (!validatePresenceOf(this.password) && authTypes.indexOf(this.provider) === -1)
+    if (!validatePresenceOf(this.password))
         next(new Error('Invalid password'));
     else
         next();

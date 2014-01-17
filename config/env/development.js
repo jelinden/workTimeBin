@@ -1,6 +1,8 @@
+'use strict';
+
 module.exports = {
-    db: "mongodb://localhost/worktimebin",
+    db: 'mongodb://localhost/worktimebin',
     app: {
-        name: "Work time bin"
+        name: 'Work time bin'
     }
 }

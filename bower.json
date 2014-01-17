@@ -1,17 +1,17 @@
 {
   "name": "worktimebin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "dependencies": {
+    "jquery": "~2.1.0-beta3",
+    "jquery-ui": "~1.10.3",
+    "angular": "latest",
+    "angular-resource": "latest",
+    "angular-cookies": "latest",
+    "angular-mocks": "latest",
+    "angular-route": "latest",
     "bootstrap": "2.3.2",
-    "angular": "1.0.6",
-    "angular-resource": "1.0.6",
-    "angular-cookies": "1.0.6",
-    "angular-bootstrap": "0.6.0",
+    "angular-bootstrap": "0.7.0",
     "angular-ui-utils": "0.0.4",
-    "angular-ui-date": "0.0.3",
-    "angular-mocks": "~1.0.8"
-  },
-  "resolutions": {
-    "angular": "1.0.6"
+    "angular-ui-date": "0.0.3"
   }
 }

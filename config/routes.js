@@ -5,20 +5,16 @@ module.exports = function(app, passport, auth) {
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
     app.get('/signout', users.signout);
-
+    app.get('/users/me', users.me);
     app.post('/users', users.create);
-
+    app.param('userId', users.user);
+    
     app.post('/users/session', passport.authenticate('local', {
         failureRedirect: '/signin',
-        failureFlash: 'Invalid email or password.'
+        failureFlash: true
     }), users.session);
 
-    app.get('/users/me', users.me);
-
-    //Finish with setting up the userId param
-    app.param('userId', users.user);
-
-    //Article Routes
+    //Tasks Routes
     var tasks = require('../app/controllers/tasks');
     app.get('/tasks/from/:fromDate', tasks.all);
     app.get('/tasks', tasks.all);

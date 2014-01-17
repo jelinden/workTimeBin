@@ -1,10 +1,11 @@
+'use strict';
+
 /**
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
     Task = mongoose.model('Task'),
-    _ = require('underscore'),
-    $ = require('jquery');
+    _ = require('underscore');
 
 /**
  * Find task by id
@@ -43,7 +44,7 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
     var task = req.task;
     task = _.extend(task, req.body);
-    task.save(function(err) {
+    task.save(function() {
         res.jsonp(task);
     });
 };
@@ -102,7 +103,7 @@ exports.all = function(req, res) {
     
     var dateToBeFetched = new Date();
 
-    if(req.query.fromDate !== 'undefined') {
+    if(req.query.fromDate !== undefined) {
         var parts = req.query.fromDate.split('-');
         req.fromDate = new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
     }
